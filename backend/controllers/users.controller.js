@@ -27,11 +27,20 @@ const searchJobs = async (req, res)=>{
     res.send(arr)
 }
 
+const getJob = async (req, res)=>{
+    console.clear()
+    const {id} =req.query
+    const job = await Job.findOne({_id:id})
+    const arr = new Array()
+    job.company_info = await Company.findOne(job.Company)
+    arr.push([job,job.company_info])
+    res.send(arr)
+}
 
 const getProfile = async (req, res)=>{
     res.send(req.user)
 }
 
 module.exports = {
-    getJobs,getProfile,searchJobs
+    getJobs,getProfile,searchJobs,getJob
 }
