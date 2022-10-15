@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-exports.postSchema = mongoose.Schema({
+const companySchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -30,6 +30,6 @@ exports.postSchema = mongoose.Schema({
     }
 });
 
-const model = mongoose.model('Company', postSchema);
+const model = mongoose.model('Company', companySchema);
 
 module.exports = model;

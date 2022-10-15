@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-exports.postSchema = mongoose.Schema({
+const jobSeekerSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -38,13 +38,13 @@ exports.postSchema = mongoose.Schema({
         type: String,
     },
     seeking_locations: {
-        type: String,
+        type: Array,
     },
     resume: {
         type: String,
     }
 });
 
-const model = mongoose.model('JobSeeker', postSchema);
+const model = mongoose.model('JobSeeker', jobSeekerSchema);
 
 module.exports = model;

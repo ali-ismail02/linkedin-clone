@@ -1,13 +1,15 @@
 const mongoose = require('mongoose');
 
-exports.postSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     user_type: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserType'
     },
     email: {
         type: String,
-        required: 'email is required'
+        required: 'email is required',
+        unique:true,
+        trim:true
     },
     password: {
         type: String,
@@ -22,6 +24,6 @@ exports.postSchema = mongoose.Schema({
     }
 });
 
-const model = mongoose.model('User', postSchema);
+const model = mongoose.model('User', userSchema);
 
 module.exports = model;

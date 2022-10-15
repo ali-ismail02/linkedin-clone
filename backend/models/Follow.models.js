@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-exports.postSchema = mongoose.Schema({
+const followSchema = mongoose.Schema({
     follower: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'JobSeeker'
@@ -11,6 +11,6 @@ exports.postSchema = mongoose.Schema({
     }
 });
 
-const model = mongoose.model('Follow', postSchema);
+const model = mongoose.model('Follow', followSchema);
 
 module.exports = model;
