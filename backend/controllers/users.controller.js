@@ -1,3 +1,4 @@
+const Application = require('../models/Application.model')
 const Follow = require('../models/Follow.model')
 const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
@@ -53,10 +54,21 @@ const followOrUnfollow = async (req,res) => {
     return res.send(follow)
 }
 
+const applyJob = async (req,res) => {
+    console.clear()
+    const {id}=req.body
+    const user = req.user
+    app = new Application()
+    app.applicant = user.info._id
+    app.job = id
+    await app.save()
+    return res.send(app)
+}
+
 const getProfile = async (req, res)=>{
     res.send(req.user)
 }
 
 module.exports = {
-    getJobs,getProfile,searchJobs,getJob,followOrUnfollow
+    getJobs,getProfile,searchJobs,getJob,followOrUnfollow,applyJob
 }
