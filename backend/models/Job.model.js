@@ -27,6 +27,6 @@ exports.postSchema = mongoose.Schema({
     }
 });
 
-const model = mongoose.model('Company', postSchema);
+const model = mongoose.model('Job', postSchema);
 
 module.exports = model;
