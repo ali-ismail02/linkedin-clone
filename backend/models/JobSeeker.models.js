@@ -1,0 +1,50 @@
+const mongoose = require('mongoose');
+
+exports.postSchema = mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    first_name: {
+        type: String,
+        required: 'first name is required'
+    },
+    last_name: {
+        type: String,
+        required: 'last name is required'
+    },
+    location: {
+        type: String,
+    },
+    school: {
+        type: String,
+    },
+    start_year: {
+        type: Number,
+    },
+    end_year: {
+        type: Number,
+    },
+    prev_job: {
+        type: String,
+    },
+    company_name: {
+        type: String,
+    },
+    exp: {
+        type: Number,
+    },
+    seeking: {
+        type: String,
+    },
+    seeking_locations: {
+        type: String,
+    },
+    resume: {
+        type: String,
+    }
+});
+
+const model = mongoose.model('JobSeeker', postSchema);
+
+module.exports = model;
