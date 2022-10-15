@@ -1,0 +1,32 @@
+const mongoose = require('mongoose');
+
+exports.postSchema = mongoose.Schema({
+    company: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Company'
+    },
+    job_title: {
+        type: String,
+        required: 'job_title is required'
+    },
+    Date: {
+        type: Date,
+        required: 'Date is required'
+    },
+    work_time: {
+        type: String,
+    },
+    requirements: {
+        type: String,
+    },
+    description: {
+        type: String,
+    },
+    location: {
+        type: String,
+    }
+});
+
+const model = mongoose.model('Company', postSchema);
+
+module.exports = model;
