@@ -1,4 +1,4 @@
-const User = require('../models/User.model')
+const Follow = require('../models/Follow.model')
 const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
 
@@ -37,10 +37,26 @@ const getJob = async (req, res)=>{
     res.send(arr)
 }
 
+const followOrUnfollow = async (req,res) => {
+    console.clear()
+    const {id}=req.body
+    const user = req.user
+    let follow = await Follow.findOne({follwer:user.info._id, following:id})
+    if(follow){
+        await follow.deleteOne()
+        return res.send(follow)
+    }
+    follow = new Follow()
+    follow.follower = user.info._id
+    follow.following = id
+    await follow.save()
+    return res.send(follow)
+}
+
 const getProfile = async (req, res)=>{
     res.send(req.user)
 }
 
 module.exports = {
-    getJobs,getProfile,searchJobs,getJob
+    getJobs,getProfile,searchJobs,getJob,followOrUnfollow
 }
