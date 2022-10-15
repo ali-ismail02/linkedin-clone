@@ -13,6 +13,7 @@ const authMiddleware = async (req, res, next) => {
         const user = await User.findOne({email: decoded.email}).lean()
 
         type = await UserType.findOne(user.user_type)
+        if(type.type != "Job Seeker") return res.status(401).json({message: "Unauthenticated"})
         type.type == "Job Seeker" ? info = await JobSeeker.findOne({user:user._id}) : info = await Company.findOne({user:user._id})
 
         req.user = {

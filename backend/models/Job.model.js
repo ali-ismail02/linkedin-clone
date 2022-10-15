@@ -24,6 +24,10 @@ const jobSchema = mongoose.Schema({
     },
     location: {
         type: String,
+    },
+    available: {
+        type: Number,
+        select: false
     }
 });
 
