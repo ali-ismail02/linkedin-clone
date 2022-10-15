@@ -3,7 +3,7 @@ const UserType = require('../models/UserType.model');
 const Company = require('../models/Company.model');
 const JobSeeker = require('../models/JobSeeker.model');
 const bcrypt = require('bcrypt');
-const { default: mongoose } = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const signup = async (req, res) => {
     const { email, password, user_type } = req.body;
@@ -11,7 +11,7 @@ const signup = async (req, res) => {
         const user = new User();
         user.email = email;
         user.password = await bcrypt.hash(password, 10);
-        user_type == 1 ? type = "Company": type = "Job Seeker"
+        user_type == 1 ? type = "Company" : type = "Job Seeker"
         type = await UserType.findOne({ type })
         console.log(type)
         user.user_type = type
@@ -29,7 +29,7 @@ const signup = async (req, res) => {
             company.user = await User.findOne({ email }).select("_id");
             await company.save();
             res.json(company)
-        }else {
+        } else {
             const { first_name, last_name, location, school, start_year, end_year, prev_job, company_name, exp, seeking, seeking_locations, resume } = req.body;
             const job_seeker = new JobSeeker();
             job_seeker.first_name = first_name;
@@ -56,7 +56,24 @@ const signup = async (req, res) => {
 
 }
 
+const login = async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email }).select("+password");
+
+    if (!user) return res.status(404).json({ message: "Invalid Credentials" });
+
+    const isMatch = bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(404).json({ message: "Invalid Credentials" });
+
+    const token = jwt.sign({ email: user.email, name: user.name,user_type: user.user_type }, process.env.JWT_SECRET_KEY, {
+        expiresIn: '1h'
+    });
+    res.status(200).json(token)
+}
+
 
 module.exports = {
-    signup
+    signup,
+    login
 }
