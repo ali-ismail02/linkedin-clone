@@ -5,7 +5,9 @@ const app = express();
 app.use(express.json());
 
 const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/users.routes');
 app.use('/auth', authRoutes)
+app.use('/user', userRoutes)
 
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
