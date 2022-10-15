@@ -8,7 +8,10 @@ const applicationSchema = mongoose.Schema({
     Job: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job'
-    }
+    },
+    status: {
+        type: Number,
+    },
 });
 
 const model = mongoose.model('Applications', applicationSchema);
