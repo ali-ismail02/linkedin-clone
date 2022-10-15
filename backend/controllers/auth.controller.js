@@ -4,16 +4,31 @@ const Company = require('../models/Company.model');
 const JobSeeker = require('../models/JobSeeker.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const fs = require("fs")
 
 const signup = async (req, res) => {
-    const { email, password, user_type } = req.body;
+    const { email, password, user_type,image,bg } = req.body;
     try {
         const user = new User();
         user.email = email;
         user.password = await bcrypt.hash(password, 10);
+        const file_name=Date.now()
+        const pathImage = './images/image'+file_name+'.png'
+        const pathBG = './images/bg'+file_name+'.png'
+        if(image){
+            let base64Data = image.replace(/^data:image\/png;base64,/, "");
+            fs.writeFile(pathImage, base64Data,  {encoding: 'base64'}, (err) => {
+            });
+            user.image = "backend/images/image"+file_name+'.png'
+        }else user.image = null
+        if(bg){
+            base64Data = bg.replace(/^data:image\/png;base64,/, "");
+            fs.writeFile(pathBG, base64Data,  {encoding: 'base64'}, (err) => {
+            });
+            user.background = "backend/images/bg"+file_name+'.png'
+        }else user.background = null
         user_type == 1 ? type = "Company" : type = "Job Seeker"
         type = await UserType.findOne({ type })
-        console.log(type)
         user.user_type = type
         await user.save();
         if (user_type == 1) {

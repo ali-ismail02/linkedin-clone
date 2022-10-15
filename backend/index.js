@@ -6,8 +6,10 @@ app.use(express.json());
 
 const authRoutes = require('./routes/auth.routes');
 const userRoutes = require('./routes/users.routes');
+const companyRoutes = require('./routes/companies.routes');
 app.use('/auth', authRoutes)
 app.use('/user', userRoutes)
+app.use('/company', companyRoutes)
 
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
