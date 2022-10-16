@@ -32,9 +32,22 @@ const addJob = async (req, res) => {
 }
 
 const deleteJob = async (req, res) => {
+    console.clear()
+    const { id } = req.body
+    await Application.deleteMany({job:id})
+    const app = await Job.deleteOne({_id:id})
+    res.send(app)
+}
+
+const setJobTaken = async (req, res) => {
+    console.clear()
+    const { id } = req.body
+    const app = await Job.updateOne({_id:id},{available:0})
+    res.send(app)
 }
 
 const getApplications = async (req, res) => {
+    console.clear()
     const { id } = req.query
     const apps = await Application.find({ job: id })
     const arr = new Array()
@@ -47,10 +60,11 @@ const getApplications = async (req, res) => {
 }
 
 const acceptOrRejectApplication = async (req, res) => {
+    console.clear()
     const { applicant_id, status } = req.body;
     const app = await Application.updateOne(applicant_id, { status: status })
     res.send(app)
 }
 module.exports = {
-    addJob, acceptOrRejectApplication, getApplications
+    addJob, acceptOrRejectApplication, getApplications,deleteJob,setJobTaken
 }
