@@ -2,6 +2,7 @@ const Application = require('../models/Application.model')
 const Follow = require('../models/Follow.model')
 const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
+const Notification = require('../models/Notification.model')
 
 const getJobs = async (req, res) => {
     console.clear()
@@ -26,6 +27,17 @@ const searchJobs = async (req, res) => {
         arr.push([job, job.company_info])
     }));
     res.send(arr)
+}
+
+const getNotifications = async (req, res) => {
+    console.clear()
+    const user = req.user
+    const notifications = await Notification.find({ job_seeker: user.info._id })
+    res.send(notifications)
+    await Promise.all(notifications.map(async (notification) => {
+        notification.read = 1
+        notification.save()
+    }));
 }
 
 const getJob = async (req, res) => {
@@ -71,5 +83,5 @@ const getProfile = async (req, res) => {
 }
 
 module.exports = {
-    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob
+    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob, getNotifications
 }
