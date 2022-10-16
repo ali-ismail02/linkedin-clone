@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const followSchema = mongoose.Schema({
+const notificationSchema = mongoose.Schema({
     job_seeker: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'JobSeeker'

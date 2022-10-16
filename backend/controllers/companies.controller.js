@@ -2,7 +2,9 @@ const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
 const Application = require('../models/Application.model')
 const User = require('../models/User.model')
+const Follow = require('../models/Follow.model')
 const JobSeeker = require('../models/JobSeeker.model')
+const Notification = require('../models/Notification.model')
 
 const addJob = async (req, res) => {
     const user = req.user;
@@ -11,7 +13,6 @@ const addJob = async (req, res) => {
     try {
         const job = new Job();
         const company = await Company.findOne({ user: user.user._id });
-        console.log(company)
         job.company = company._id;
         job.job_title = job_title;
         job.Date = new Date();
@@ -23,6 +24,15 @@ const addJob = async (req, res) => {
         await job.save();
         company.jobs.push(job._id)
         company.save()
+        const toNotify = await Follow.find({following:company._id})
+        await Promise.all(toNotify.map(async (follower) => {
+            const notification = new Notification()
+            notification.company = company._id
+            notification.job = job._id
+            notification.read = 0
+            notification.job_seeker = follower.follower
+            await notification.save()
+        }));
         res.json(job)
     } catch (err) {
         res.status(400).json({
