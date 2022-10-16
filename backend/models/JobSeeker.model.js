@@ -19,6 +19,9 @@ const jobSeekerSchema = mongoose.Schema({
     school: {
         type: String,
     },
+    major: {
+        type: String,
+    },
     start_year: {
         type: Number,
     },

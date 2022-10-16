@@ -45,7 +45,7 @@ const signup = async (req, res) => {
             await company.save();
             res.json(company)
         } else {
-            const { first_name, last_name, location, school, start_year, end_year, prev_job, company_name, exp, seeking, seeking_locations, resume } = req.body;
+            const { major,first_name, last_name, location, school, start_year, end_year, prev_job, company_name, exp, seeking, seeking_locations, resume } = req.body;
             const job_seeker = new JobSeeker();
             job_seeker.first_name = first_name;
             job_seeker.last_name = last_name;
@@ -53,6 +53,7 @@ const signup = async (req, res) => {
             job_seeker.school = school;
             job_seeker.start_year = start_year;
             job_seeker.end_year = end_year;
+            job_seeker.major = major;
             job_seeker.prev_job = prev_job;
             job_seeker.company_name = company_name;
             job_seeker.exp = exp;

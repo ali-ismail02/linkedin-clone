@@ -24,7 +24,7 @@ const Signin = () => {
     return (
         <div className='main-login'>
             <img src={logo} className="header-image"/>
-            <div>
+            <div className='flex-col'>
                 <div className='login-form'>
                     <p className='login-title'>Sign in</p>
                     <p className='login-subtitle'>Stay updated on your professional world</p>
@@ -32,7 +32,7 @@ const Signin = () => {
                     <Input type={"password"} placeholder={"Password"} value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Button text={"Sign in"} onClick={onClick} />
                 </div>
-                <p className='signup-link'>New to LinkedIn? <Link to="/signup">Instructors</Link></p>
+                <p className='signup-link'>New to LinkedIn? <Link to="/signup-email">SignUp</Link></p>
             </div>
             <p><br></br></p>
         </div>
