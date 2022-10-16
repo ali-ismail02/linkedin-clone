@@ -5,7 +5,7 @@ const applicationSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'JobSeeker'
     },
-    Job: {
+    job: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Job'
     },

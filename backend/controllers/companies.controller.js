@@ -1,6 +1,8 @@
 const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
 const Application = require('../models/Application.model')
+const User = require('../models/User.model')
+const JobSeeker = require('../models/JobSeeker.model')
 
 const addJob = async (req, res) => {
     const user = req.user;
@@ -29,15 +31,26 @@ const addJob = async (req, res) => {
     }
 }
 
+const deleteJob = async (req, res) => {
+}
+
+const getApplications = async (req, res) => {
+    const { id } = req.query
+    const apps = await Application.find({ job: id })
+    const arr = new Array()
+    await Promise.all(apps.map(async (app) => {
+        const applicant = await JobSeeker.findOne(app.applicant)
+        const applicant_info = await User.findOne(applicant.user)
+        arr.push({ app,applicant_info, applicant })
+    }));
+    res.send(arr)
+}
+
 const acceptOrRejectApplication = async (req, res) => {
-    const { status, job_id, applicant_id } = req.body;
-    app = await Application.find({applicant:applicant_id,job:job_id})
-    if(!app){
-        return res.status(400).send('Error')
-    }
-    app.status = status
+    const { applicant_id, status } = req.body;
+    const app = await Application.updateOne(applicant_id, { status: status })
     res.send(app)
 }
 module.exports = {
-    addJob,acceptOrRejectApplication
+    addJob, acceptOrRejectApplication, getApplications
 }

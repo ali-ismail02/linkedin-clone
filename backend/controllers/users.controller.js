@@ -56,11 +56,11 @@ const followOrUnfollow = async (req, res) => {
 
 const applyJob = async (req, res) => {
     console.clear()
-    const { id } = req.body
+    const { job_id } = req.body
     const user = req.user
     app = new Application()
     app.applicant = user.info._id
-    app.job = id
+    app.job = job_id
     app.status = 0
     await app.save()
     return res.send(app)
