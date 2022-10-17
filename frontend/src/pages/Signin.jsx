@@ -1,6 +1,6 @@
 import '../index.css';
 import Button from '../components/Button';
-import Fetch from '../hooks/Fetch';
+import Post from '../hooks/Fetch';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Input from '../components/Input';
@@ -18,7 +18,7 @@ const Signin = () => {
             "email": email,
             "password": password
         }
-        const result = await Fetch("auth/login", data)
+        const result = await Post("auth/login", data)
         localStorage.jwt = result.data.token
         if(result.data.type == "Job Seeker"){
             console.log(result)

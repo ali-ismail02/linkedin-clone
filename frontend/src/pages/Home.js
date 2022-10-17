@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import JobComponent from "../components/JobComponent"
+import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import JobComponent from "../components/JobComponent";
 import logo from "../images/logo.png";
 import "../index.css";
 
 function Home() {
   const [search, setSearch] = useState("");
+
   return (<>
     <Header search={search} setSearch={setSearch} />
     <div className="home_container flex justify-center">
       <div className="jobs-container">
         <div className="title">Recommended For You</div>
         <div className="subtitle">Based on your profile</div>
+
         <JobComponent
           title={"Full Stack Developer"}
           company={"Ailo"}

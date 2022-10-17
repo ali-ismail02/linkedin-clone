@@ -1,6 +1,5 @@
 import '../index.css';
 import Button from '../components/Button';
-import Fetch from '../hooks/Fetch';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Input from '../components/Input';

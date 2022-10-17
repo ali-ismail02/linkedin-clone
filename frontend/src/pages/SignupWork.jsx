@@ -1,6 +1,6 @@
 import '../index.css';
 import Button from '../components/Button';
-import Fetch from '../hooks/Fetch';
+import Post from '../hooks/Fetch';
 import { Link, useNavigate,useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Input from '../components/Input';
@@ -43,13 +43,13 @@ const SignupWork = () => {
             "prev_job": title,
             "user_type":2
         })
-        const result = await Fetch("auth/signup", data)
+        const result = await Post("auth/signup", data)
         if(result._id){
             const data = {
                 "email": location.state.email,
                 "password": location.state.password
             }
-            const result = await Fetch("auth/login", data)
+            const result = await Post("auth/login", data)
             localStorage.jwt = result.token
             nav("/home")
         }
