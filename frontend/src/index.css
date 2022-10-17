@@ -149,4 +149,35 @@
   .drop-down span:hover {
     color: black;
   }
+
+  /* Job Componen */
+
+  .job-container {
+    padding: 0.5rem;
+  }
+  
+  .job-title {
+    color: #0a66c2 !important;
+    font-size: 1.2rem;
+  }
+  .job-company {
+    opacity: 1;
+    font-size: 0.9rem;
+  }
+  
+  .job-location {
+    color: #828282;
+    font-size: 0.9rem;
+  }
+  
+  .job-date {
+    color: #828282;
+    font-size: 0.9rem;
+  }
+  
+  .applicants-nb {
+    color: rgb(25, 129, 81);
+    opacity: 1 !important ;
+  }
+  
   
