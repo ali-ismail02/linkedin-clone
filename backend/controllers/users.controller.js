@@ -3,6 +3,7 @@ const Follow = require('../models/Follow.model')
 const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
 const Notification = require('../models/Notification.model')
+const User = require('../models/User.model')
 
 const getJobs = async (req, res) => {
     console.clear()
@@ -11,7 +12,8 @@ const getJobs = async (req, res) => {
     const arr = new Array()
     await Promise.all(jobs.map(async (job) => {
         job.company_info = await Company.findOne(job.Company)
-        arr.push([job, job.company_info])
+        job.company_user = await User.findOne(job.company_info.user)
+        arr.push([job, job.company_info,job.company_user])
     }));
     res.send(arr)
 }

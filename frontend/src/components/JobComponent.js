@@ -2,9 +2,9 @@ import React from "react";
 import "../index.css";
 import { AiOutlineArrowRight } from "react-icons/ai";
 
-function JobComponent({ title, company, location, date, applicants, logo }) {
+function JobComponent({ title, company, location, date, applicants, logo,onClick }) {
   return (
-    <div className="flex justify-between job-container">
+    <div className="flex justify-between job-container" onClick={onClick}>
       <div className="left flex">
         <div className="logo">
           <img src={logo} />
