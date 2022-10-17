@@ -180,4 +180,26 @@
     opacity: 1 !important ;
   }
   
+  /* Home page */
+
+  .jobs-container {
+    background-color: white;
+    border-radius: 6px;
+    width: 40rem;
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+  }
+  
+  .subtitle {
+    opacity: 0.5;
+    font-size: 0.85rem;
+  }
+  
+  .job-container:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
   
