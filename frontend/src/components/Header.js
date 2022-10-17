@@ -1,5 +1,5 @@
 import React from "react";
-import "../indexcss";
+import "../index.css";
 import { AiFillLinkedin, AiFillHome } from "react-icons/ai";
 import { BiSearchAlt2, BiUser } from "react-icons/bi";
 import { MdWork } from "react-icons/md";

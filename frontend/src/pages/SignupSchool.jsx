@@ -32,7 +32,7 @@ const SignupEmail = () => {
                     <p className='login-title'>Sign up</p>
                     <p className='login-subtitle'>Stay updated on your professional world</p>
                     <Input type={"text"} placeholder={"School"} id={"school"} value={school} onChange={(e) => setSchool(e.target.value)} />
-                    <div className='flex w-100'>
+                    <div className='flex-space-between w-100'>
                         <div className='w-45'>
                             <Input type={"number"} min={1950} max={2023} id={"start"} placeholder={"Start year"} value={start} onChange={(e) => setStart(e.target.value)} />
                         </div>

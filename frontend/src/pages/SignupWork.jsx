@@ -44,7 +44,15 @@ const SignupWork = () => {
             "user_type":2
         })
         const result = await Fetch("auth/signup", data)
-        console.log(result)
+        if(result._id){
+            const data = {
+                "email": location.state.email,
+                "password": location.state.password
+            }
+            const result = await Fetch("auth/login", data)
+            localStorage.jwt = result.token
+            nav("/home")
+        }
     }
     return (
         <div className='main-login'>

@@ -19,7 +19,11 @@ const Signin = () => {
             "password": password
         }
         const result = await Fetch("auth/login", data)
-        localStorage.jwt = result.token
+        localStorage.jwt = result.data.token
+        if(result.data.type == "Job Seeker"){
+            console.log(result)
+            nav("/home")
+        }
     }
     return (
         <div className='main-login'>

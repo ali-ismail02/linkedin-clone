@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import Header from "../components/Header";
 import JobComponent from "../components/JobComponent";
 import logo from "../images/logo.png";
 import "../index.css";
 
 function Home() {
-  return (
+  const [search, setSearch] = useState("");
+  return (<>
+    <Header search={search} setSearch={setSearch} />
     <div className="home_container flex justify-center">
       <div className="jobs-container">
         <div className="title">Recommended For You</div>
@@ -51,6 +54,7 @@ function Home() {
         />
       </div>
     </div>
+    </>
   );
 }
 
