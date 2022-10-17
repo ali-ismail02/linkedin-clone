@@ -80,3 +80,73 @@
     display: flex;
     justify-content: space-between;
 }
+
+/* header */
+
+.header_container {
+    background-color: white;
+  }
+  
+  .search_container {
+    position: relative;
+  }
+  
+  .search_input {
+    padding: 0.25rem;
+    padding-left: 1.5rem;
+    background-color: #eef3f8;
+    border-radius: 4px;
+    width: 20rem;
+  }
+  
+  .search_input::placeholder {
+    color: rgb(95, 97, 99);
+  }
+  
+  .search_icon {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.25rem;
+  }
+  
+  .nav-item {
+    color: grey;
+    width: 5rem;
+  }
+  
+  .nav-item:hover {
+    color: black;
+  }
+  
+  .drop-down {
+    visibility: hidden;
+    opacity: 0.1;
+  }
+  
+  .user:hover + .drop-down,
+  .user:focus + .drop-down,
+  .drop-down:hover,
+  .drop-down:focus {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  
+  .drop-down {
+    position: absolute;
+    top: 3rem;
+    right: 9.5rem;
+    width: 10rem;
+    height: 5rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 6px;
+  }
+  
+  .drop-down span {
+    color: grey;
+  }
+  
+  .drop-down span:hover {
+    color: black;
+  }
+  
