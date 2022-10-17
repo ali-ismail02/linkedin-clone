@@ -44,7 +44,7 @@ const SignupWork = () => {
             "user_type":2
         })
         const result = await Post("auth/signup", data)
-        if(result._id){
+        if(result.data._id){
             const data = {
                 "email": location.state.email,
                 "password": location.state.password
@@ -57,7 +57,7 @@ const SignupWork = () => {
     return (
         <div className='main-login'>
             <img src={logo} className="header-image" />
-            <div className='flex-col'>
+            <div className='flex-col-allign'>
                 <div className='login-form'>
                     <p className='login-title'>Sign up</p>
                     <p className='login-subtitle'>Stay updated on your professional world</p>

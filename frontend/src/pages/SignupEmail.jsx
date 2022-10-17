@@ -30,7 +30,7 @@ const SignupEmail = () => {
     return (
         <div className='main-login'>
             <img src={logo} className="header-image"/>
-            <div className='flex-col'>
+            <div className='flex-col-allign'>
                 <div className='login-form'>
                     <p className='login-title'>Sign up</p>
                     <p className='login-subtitle'>Stay updated on your professional world</p>

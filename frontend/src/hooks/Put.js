@@ -1,8 +1,8 @@
 import axios from 'axios';
 let base_url = "http://127.0.0.1:3000/"
-const Post = async (api_url, api_data, api_token = null) => {
+const Put = async (api_url, api_data, api_token = null) => {
     try {
-        return await axios.post(
+        return await axios.put(
             base_url + api_url,
             api_data,
             {

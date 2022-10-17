@@ -2,10 +2,21 @@ import JobComponent from "../components/JobComponent"
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import logo from "../images/logo.png";
+import Get from "../hooks/Get"
 import "../index.css";
 
 function Home() {
   const [search, setSearch] = useState("");
+  const [jobs, setJobs] = useState("");
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const result = await Get("user/get-jobs",localStorage.jwt)
+      setJobs(result)
+      console.log(result.data)
+    }
+    fetchJobs()
+  },[])
 
   return (<>
     <Header search={search} setSearch={setSearch} />
