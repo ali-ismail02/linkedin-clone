@@ -6,8 +6,6 @@ import { useState } from 'react';
 import Input from '../components/Input';
 import logo from '../images/linkedin.png';
 
-
-
 const SignupEmail = () => {
     const [start, setStart] = useState("")
     const [end, setEnd] = useState("")

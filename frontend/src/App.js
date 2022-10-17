@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signin from "./components/Signin";
-import SignupEmail from "./components/SignupEmail";
-import SignupSchool from "./components/SignupSchool";
-import SignupWork from "./components/SignupWork";
+import Signin from "./pages/Signin";
+import SignupEmail from "./pages/SignupEmail";
+import SignupSchool from "./pages/SignupSchool";
+import SignupWork from "./pages/SignupWork";
 function App() {
   return (
     <Router>
