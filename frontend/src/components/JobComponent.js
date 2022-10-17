@@ -4,10 +4,10 @@ import { AiOutlineArrowRight } from "react-icons/ai";
 
 function JobComponent({ title, company, location, date, applicants, logo,onClick }) {
   return (
-    <div className="flex justify-between job-container" onClick={onClick}>
+    <div className="flex justify-between job-container cursor-pointer" onClick={onClick}>
       <div className="left flex">
         <div className="logo">
-          <img src={logo} />
+          <img src={logo} className={"job-image"} />
         </div>
         <div className="details flex flex-col">
           <span className="job-title">{title}</span>

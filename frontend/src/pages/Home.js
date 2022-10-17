@@ -39,8 +39,8 @@ function Home() {
             company={value[1].company_name}
             location={value[0].location}
             date={"1 day ago"}
-            applicants={5}
-            logo={logo}
+            applicants={value[3]}
+            logo={"http://127.0.0.1:3000/img?id="+value[2]._id}
           />)
         }):console.log("hi")}
       </div>

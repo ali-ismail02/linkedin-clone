@@ -19,13 +19,13 @@ const signup = async (req, res) => {
             let base64Data = image.replace(/^data:image\/png;base64,/, "");
             fs.writeFile(pathImage, base64Data,  {encoding: 'base64'}, (err) => {
             });
-            user.image = "backend/images/image"+file_name+'.png'
+            user.image = "images/image"+file_name+'.png'
         }else user.image = null
         if(bg){
             base64Data = bg.replace(/^data:image\/png;base64,/, "");
             fs.writeFile(pathBG, base64Data,  {encoding: 'base64'}, (err) => {
             });
-            user.background = "backend/images/bg"+file_name+'.png'
+            user.background = "images/bg"+file_name+'.png'
         }else user.background = null
         user_type == 1 ? type = "Company" : type = "Job Seeker"
         type = await UserType.findOne({ type })

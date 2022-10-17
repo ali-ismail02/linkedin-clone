@@ -13,9 +13,18 @@ const getJobs = async (req, res) => {
     await Promise.all(jobs.map(async (job) => {
         job.company_info = await Company.findOne(job.Company)
         job.company_user = await User.findOne(job.company_info.user)
-        arr.push([job, job.company_info,job.company_user])
+        job.applicant = await Application.count({job:job._id})
+        arr.push([job, job.company_info,job.company_user,job.applicant])
     }));
     res.send(arr)
+}
+
+const getImg = async (req, res) => {
+    console.clear()
+    const {id} = req.body
+    const path = await User.findOne({_id:id})
+    console.log("../"+path.image)
+    res.sendFile("./"+path.image)
 }
 
 const searchJobs = async (req, res) => {
@@ -85,5 +94,5 @@ const getProfile = async (req, res) => {
 }
 
 module.exports = {
-    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob, getNotifications
+    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob, getNotifications,getImg
 }
