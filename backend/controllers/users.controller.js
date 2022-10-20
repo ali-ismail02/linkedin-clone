@@ -4,6 +4,7 @@ const Job = require('../models/Job.model')
 const Company = require('../models/Company.model')
 const Notification = require('../models/Notification.model')
 const User = require('../models/User.model')
+const fs = require('fs')
 
 const getJobs = async (req, res) => {
     console.clear()
@@ -13,18 +14,18 @@ const getJobs = async (req, res) => {
     await Promise.all(jobs.map(async (job) => {
         job.company_info = await Company.findOne(job.Company)
         job.company_user = await User.findOne(job.company_info.user)
-        job.applicant = await Application.count({job:job._id})
-        arr.push([job, job.company_info,job.company_user,job.applicant])
+        job.applicant = await Application.count({ job: job._id })
+        arr.push([job, job.company_info, job.company_user, job.applicant])
     }));
     res.send(arr)
 }
 
 const getImg = async (req, res) => {
     console.clear()
-    const {id} = req.body
-    const path = await User.findOne({_id:id})
-    console.log("../"+path.image)
-    res.sendFile("./"+path.image)
+    const { id } = req.body
+    const path = await User.findOne({ _id: id })
+    console.log("../" + path.image)
+    res.sendFile("./" + path.image)
 }
 
 const searchJobs = async (req, res) => {
@@ -61,9 +62,20 @@ const getJob = async (req, res) => {
     res.send(arr)
 }
 
-const followOrUnfollow = async (req, res) => {
+const checkIfFollowed = async (req, res) => {
     console.clear()
     const { id } = req.body
+    const user = req.user
+    let follow = await Follow.findOne({ follwer: user.info._id, following: id })
+    if (follow) {
+        return res.send("Unfollow")
+    }
+    return res.send("Follow")
+}
+
+const followOrUnfollow = async (req, res) => {
+    console.clear()
+    const { id } = req.query
     const user = req.user
     let follow = await Follow.findOne({ follwer: user.info._id, following: id })
     if (follow) {
@@ -79,12 +91,20 @@ const followOrUnfollow = async (req, res) => {
 
 const applyJob = async (req, res) => {
     console.clear()
-    const { job_id } = req.body
+    const { job_id,resume } = req.body
     const user = req.user
     app = new Application()
     app.applicant = user.info._id
     app.job = job_id
     app.status = 0
+    const file_name = Date.now()
+    const path = './resumes/' + file_name + '.docx'
+    if (resume) {
+        let base64Data = resume.replace(/^data\:application\/vnd\.openxmlformats\-officedocument\.wordprocessingml\.document\;base64,/, "");
+        fs.writeFile(path, base64Data, { encoding: 'base64' }, (err) => {
+        });
+        app.resume = file_name + '.docx'
+    }
     await app.save()
     return res.send(app)
 }
@@ -94,5 +114,5 @@ const getProfile = async (req, res) => {
 }
 
 module.exports = {
-    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob, getNotifications,getImg
+    getJobs, getProfile, searchJobs, getJob, followOrUnfollow, applyJob, getNotifications, getImg, checkIfFollowed
 }

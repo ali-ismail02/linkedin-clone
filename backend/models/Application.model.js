@@ -12,6 +12,9 @@ const applicationSchema = mongoose.Schema({
     status: {
         type: Number,
     },
+    resume: {
+        type: String,
+    },
 });
 
 const model = mongoose.model('Applications', applicationSchema);
