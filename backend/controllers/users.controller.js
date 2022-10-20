@@ -65,7 +65,9 @@ const getJob = async (req, res) => {
     const job = await Job.findOne({ _id: id })
     const arr = new Array()
     job.company_info = await Company.findOne(job.Company)
-    arr.push([job, job.company_info])
+    job.company_user = await User.findOne(job.company_info.user)
+    job.applicant = await Application.count({ job: job._id })
+    arr.push([job, job.company_info, job.company_user, job.applicant])
     res.send(arr)
 }
 

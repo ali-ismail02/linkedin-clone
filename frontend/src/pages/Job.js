@@ -14,6 +14,7 @@ function Job() {
   const location = useLocation()
   const data = location.state.data
   const profile = location.state.profile
+  console.log(data)
 
   const reader = new FileReader()
   reader.addEventListener("load", () => {
@@ -26,7 +27,7 @@ function Job() {
       setFollow(result.data)
     }
     followed()
-  }, [])
+  }, [data])
 
   const apply = async () => {
     const application = await Post("user/apply-job", { id: data[1]._id, resume:resume }, localStorage.jwt)

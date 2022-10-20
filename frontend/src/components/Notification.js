@@ -1,8 +1,8 @@
 import '../index.css';
 
-const Notification = ({data}) => {
+const Notification = ({data, onClick}) => {
     return (
-    <div className='flex items-center w-72 p-2 border-b border-t border-gray-300'>
+    <div onClick={onClick} className='flex items-center w-72 p-2 border-b border-t border-gray-300'>
         <img src={"http://127.0.0.1:3000/img?id="+data[3]._id} className=" w-9 h-9 mr-4 rounded-full"/>
         <div className='flex flex-col'>
             <p className='text-lg'>{data[2].company_name}</p>

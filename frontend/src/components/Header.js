@@ -7,11 +7,13 @@ import { MdWork } from "react-icons/md";
 import { BsFillBellFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Get from "../hooks/Get";
+import Notification from "./Notification";
 
 function Header({ search, setSearch, image }) {
   const navigate = useNavigate();
   const [notifications,setNotif] = useState(null)
   const [count,setCount] = useState(0)
+  const [x,setX] = useState(false)
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/jobs");
@@ -23,12 +25,13 @@ function Header({ search, setSearch, image }) {
       setNotif(result.data)
       console.log(result.data)
       for(const res of result.data){
-        console.log(res.read)
         if(res.read == 0) setCount(count + 1)
       }
     }
     fetchNoti()
-  },[])
+  },[x])
+
+  x == true && setX(true)
 
   const showNotif = () => {
     document.getElementById("notif").classList.toggle("hidden")
@@ -36,6 +39,16 @@ function Header({ search, setSearch, image }) {
 
   const goToJobs = () => {
     navigate("/home")
+  }
+
+  const onClick = async (id) => {
+    let result = await Get("user/get-job?id=" + id, localStorage.jwt)
+    result != null && navigate("/job", {state: {data:result.data[0]}})
+  }
+
+  const logout = async (id) => {
+    localStorage.removeItem("jwt")
+    navigate("/")
   }
 
   return (
@@ -66,8 +79,10 @@ function Header({ search, setSearch, image }) {
             </div>
             <small>Notifications</small>
           </div>
-          <div id="notif" className="w-60 flex flex-col absolute z-10 bg-red-500 top-14 hidden">
-            
+          <div id="notif" className="w-72 flex flex-col absolute z-10 bg-white top-14 hidden">
+            {notifications != null && notifications.map(element => {
+              return <Notification onClick={() => onClick(element[1]._id)} data={element}></Notification>
+            })}
           </div>
           <div className="user nav-item flex flex-col items-center">
             {image ? <img src={"http://127.0.0.1:3000/img?id="+image} className="navbar-image" /> : <BiUser size={25} />}
@@ -75,7 +90,7 @@ function Header({ search, setSearch, image }) {
           </div>
           <div className="drop-down flex flex-col justify-evenly text-center">
             <span>Profile</span>
-            <span>Logout</span>
+            <span onClick={logout}>Logout</span>
           </div>
         </div>
       </div>
