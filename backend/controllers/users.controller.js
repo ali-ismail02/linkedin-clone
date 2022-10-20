@@ -44,8 +44,15 @@ const searchJobs = async (req, res) => {
 const getNotifications = async (req, res) => {
     console.clear()
     const user = req.user
+    const arr = new Array()
     const notifications = await Notification.find({ job_seeker: user.info._id })
-    res.send(notifications)
+    await Promise.all(notifications.map(async (noti) => {
+        const job = await Job.findOne(noti.job)
+        const company = await Company.findOne(job.Company)
+        const user = await User.findOne(company.user)
+        arr.push([noti,job,company,user])
+    }));
+    res.send(arr)
     await Promise.all(notifications.map(async (notification) => {
         notification.read = 1
         notification.save()

@@ -6,7 +6,8 @@ const Get = async (api_url, api_token = null) => {
             base_url + api_url,
             {
                 headers: {
-                    'Authorization': api_token
+                    'Authorization': api_token,
+                    "Content-Type": "application/x-www-form-urlencoded"
                 }
             }
         );

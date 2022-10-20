@@ -7,7 +7,8 @@ const Put = async (api_url, api_data, api_token = null) => {
             api_data,
             {
                 headers: {
-                    'Authorization': api_token
+                    'Authorization': api_token,
+                    "Content-Type": "application/x-www-form-urlencoded"
                 }
             }
         );

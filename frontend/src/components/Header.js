@@ -1,17 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import "../index.css";
+import {useEffect} from "react"
 import { AiFillLinkedin, AiFillHome } from "react-icons/ai";
 import { BiSearchAlt2, BiUser } from "react-icons/bi";
 import { MdWork } from "react-icons/md";
 import { BsFillBellFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import Get from "../hooks/Get";
 
 function Header({ search, setSearch, image }) {
   const navigate = useNavigate();
+  const [notifications,setNotif] = useState(null)
+  const [count,setCount] = useState(0)
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/jobs");
   };
+
+  useEffect(() => {
+    const fetchNoti = async () => {
+      const result = await Get("user/get-notifications",localStorage.jwt)
+      setNotif(result.data)
+      console.log(result.data)
+      for(const res of result.data){
+        console.log(res.read)
+        if(res.read == 0) setCount(count + 1)
+      }
+    }
+    fetchNoti()
+  },[])
+
+  const showNotif = () => {
+    document.getElementById("notif").classList.toggle("hidden")
+  }
+
+  const goToJobs = () => {
+    navigate("/home")
+  }
 
   return (
     <div className=" header_container py-1">
@@ -30,17 +55,19 @@ function Header({ search, setSearch, image }) {
           </form>
         </div>
         <div className="right flex items-center">
-          <div className="nav-item flex flex-col items-center">
-            <AiFillHome size={25} />
-            <small>Home</small>
-          </div>
-          <div className="nav-item flex flex-col items-center">
+          <div onClick={goToJobs} className="nav-item flex flex-col items-center">
             <MdWork size={25} />
             <small>Jobs</small>
           </div>
-          <div className="nav-item flex flex-col items-center">
-            <BsFillBellFill size={25} />
+          <div onClick={showNotif} className="nav-item flex relative flex-col items-center">
+            <div className="w-full flex justify-center">
+              <BsFillBellFill size={25} />
+              {count > 0 && <p className="text-red-500">{count}</p>}
+            </div>
             <small>Notifications</small>
+          </div>
+          <div id="notif" className="w-60 flex flex-col absolute z-10 bg-red-500 top-14 hidden">
+            
           </div>
           <div className="user nav-item flex flex-col items-center">
             {image ? <img src={"http://127.0.0.1:3000/img?id="+image} className="navbar-image" /> : <BiUser size={25} />}
