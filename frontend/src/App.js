@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Notification from "./components/Notification";
 import Home from "./pages/Home";
 import Job from "./pages/Job";
 import Signin from "./pages/Signin";
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup-work" element={<SignupWork/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/job" element={<Job />} />
+        <Route path="/notifications" element={<Notification />} />
       </Routes>
     </Router>
   );
