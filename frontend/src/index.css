@@ -86,6 +86,11 @@
 .header_container {
     background-color: white;
   }
+
+  .navbar-image { 
+    width: 25px;
+    margin: auto;
+  }
   
   .search_container {
     position: relative;

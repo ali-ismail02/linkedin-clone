@@ -6,7 +6,7 @@ import { MdWork } from "react-icons/md";
 import { BsFillBellFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
-function Header({ search, setSearch }) {
+function Header({ search, setSearch, image }) {
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -43,7 +43,7 @@ function Header({ search, setSearch }) {
             <small>Notifications</small>
           </div>
           <div className="user nav-item flex flex-col items-center">
-            <BiUser size={25} />
+            {image ? <img src={"http://127.0.0.1:3000/img?id="+image} className="navbar-image" /> : <BiUser size={25} />}
             <small>Me</small>
           </div>
           <div className="drop-down flex flex-col justify-evenly text-center">

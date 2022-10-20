@@ -9,14 +9,17 @@ import { useNavigate } from "react-router";
 function Home() {
   const [search, setSearch] = useState("");
   const [jobs, setJobs] = useState([]);
+  const [profile, setProfile] = useState(null);
   const [x, setX] = useState(false);
   const nav = useNavigate()
   
   useEffect(() => {
     const fetchJobs = async () => {
       const result = await Get("user/get-jobs",localStorage.jwt)
+      const profile = await Get("user/get-profile",localStorage.jwt)
+      setProfile(profile.data)
       setJobs(result.data)
-      console.log(result.data)
+      console.log(profile.data)
     }
     fetchJobs()
   },[x])
@@ -24,11 +27,11 @@ function Home() {
   x == true && setX(true)
 
   const onClick = (data) => {
-    nav("/job", {state: {data:data}})
+    nav("/job", {state: {data:data,profile:profile}})
   }
 
   return (<>
-    <Header search={search} setSearch={setSearch} />
+    <Header search={search} image={profile ? profile.user._id : null} setSearch={setSearch} />
     <div className="home_container flex justify-center">
       <div className="jobs-container">
         <div className="title">Recommended For You</div>
